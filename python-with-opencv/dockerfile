@@ -1,0 +1,9 @@
+FROM 192.168.0.137:9002/python/python-base:latest
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    curl \
+    make \
+    ffmpeg \
+    libsm6 \
+    libxext6

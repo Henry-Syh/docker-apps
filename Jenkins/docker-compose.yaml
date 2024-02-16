@@ -1,0 +1,38 @@
+services:
+
+  docker:
+    container_name: jenkins-docker
+    privileged: true
+    networks:
+      - jenkins
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - '/root/storage/jenkins/jenkins-docker-certs:/certs/client'
+      - '/root/storage/jenkins/jenkins_home:/var/jenkins_home'
+    ports:
+      - '2376:2376'
+    image: 'docker:dind'
+    command: --storage-driver=overlay2
+    restart: always
+
+  myjenkins-blueocean:
+    container_name: jenkins-blueocean
+    privileged: true
+    restart: always
+    networks:
+      - jenkins
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    ports:
+      - '9003:8080'
+      - '50000:50000'
+    volumes:
+      - '/root/storage/jenkins/jenkins_home:/var/jenkins_home'
+      - '/root/storage/jenkins/jenkins-docker-certs:/certs/client:ro'
+    image: 'myjenkins'
+
+networks:
+  jenkins:

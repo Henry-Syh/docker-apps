@@ -1,0 +1,2 @@
+FROM pypiserver/pypiserver:latest
+ENTRYPOINT ["/entrypoint.sh", "run", "--hash-algo", "sha256"]

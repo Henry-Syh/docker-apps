@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  pypi:
+    image: mypypi:latest
+    container_name: mypypi
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8990:8080"
+    volumes:
+      - ../authfile:/data/.htpasswd
+      - ../packages:/data/packages
+    command: -a update,download,list -P /data/.htpasswd /data/packages
+    restart: always

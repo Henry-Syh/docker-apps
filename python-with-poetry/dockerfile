@@ -1,0 +1,7 @@
+FROM 192.168.0.137:9002/python/python-base:latest
+
+RUN apt-get update \
+	&& apt-get install --no-install-recommends -y \
+	curl \
+	make \
+	&& curl -sSL https://install.python-poetry.org | python3 -

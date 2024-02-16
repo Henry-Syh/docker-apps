@@ -1,0 +1,14 @@
+services:
+  rabbit:
+    image: myrabbitmq
+    container_name: rabbit
+    environment:
+        - RABBITMQ_DEFAULT_USER=test
+        - RABBITMQ_DEFAULT_PASS=iampass
+    ports:
+      - "15672:15672"
+      - "15674:15674"
+      - "15675:15675"
+      - "1884:1883"
+      - "5672:5672"
+    restart: always
